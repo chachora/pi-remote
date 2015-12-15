@@ -9,7 +9,7 @@
 
 var express = require('express');
 var app = express();
-var sys = require('sys')
+var sys = require('util')
 var exec = require('child_process').exec;
 
 /**
@@ -115,4 +115,4 @@ app.get('/send/:device/:key', function(req, res) {
 }); // end define GET request for /send/deviceName/buttonName
 
 // Listen on port 80
-app.listen('80');
+app.listen('3050');
