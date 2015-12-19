@@ -3,11 +3,22 @@
 <head>
     {{>head}}
 </head>
+<script>
+    function submit(){
+        var brands = document.getElementById("brands");
+        var brand = brands.options[brands.selectedIndex].text;
+        window.location = '/devices/add/'+brand;
+    }
+</script>
 <body>
-    <ul>
+
+    <select size = "5" id="brands">
         {{#brands}}
-        <li>{{.}}</li>
+        <option value="{{.}}">{{.}}</option>
         {{/brands}}
-    </ul>
+    </select>
+    <button onclick="submit()">
+        Next
+    </button>
 </body>
 </html>

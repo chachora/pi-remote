@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{>head}}
+</head>
+<script>
+    function submit(){
+        alert("submit!");
+    }
+</script>
+<body>
+
+<select size = "5" id="devices">
+    {{#devices}}
+    <option value="{{.}}">{{.}}</option>
+    {{/devices}}
+</select>
+<button onclick="submit()">
+    Next
+</button>
+</body>
+</html>
