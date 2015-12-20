@@ -1,4 +1,4 @@
-/**
+ /**
  * app.js
  * 
  * IR Remote Web Service
@@ -10,7 +10,7 @@ var express = require('express');
 var app = express();
 var sys = require('util');
 var exec = require('child_process').exec;
-var lircRemotes = require('./lib/lirc-remotes');
+var lircConfDb = require('./lib/lirc-conf-db');
 var mustache = require('mustache-express');
 
 // Define templates engine
@@ -19,24 +19,40 @@ app.set('view engine', 'html');
 app.set('views', __dirname +'/views');
 app.use(express.static(__dirname + '/assets'));
 
-// Controller the brand of the new device from LIRC database.
+/**
+ * Controller the brand of the new device from LIRC database.
+ */
 app.get("/devices/add", function(req,res){
-    lircRemotes.getAllBrands(function(brands){
+    lircConfDb.getAllBrands(function(brands){
         res.render("devices_add", {
             brands: brands
         })
     });
 });
 
-// Controller for the device by specified brand from LIRC database.
+ /**
+  * Controller for the device list by specified brand from LIRC database.
+  */
 app.get("/devices/add/:brand", function(req,res){
   var brand = req.params["brand"];
-  lircRemotes.getDevicesByBrand(brand, function(devices){
+  lircConfDb.getDevicesByBrand(brand, function(devices){
     res.render("devices_add_brand", {
+      brand: brand,
       devices: devices
     })
   });
 });
+
+ /**
+  * Controller for the LIRC configuration file of the specified devices.
+  */
+ app.get("/devices/add/:brand/:device",function(req,res){
+     var brand = req.param("brand");
+     var device = req.param("device");
+     lircConfDb.getDeviceConf(brand, device, function(conf){
+        res.send(conf);
+     });
+ });
 
 // define GET request for /send/deviceName/buttonName
 app.get('/send/:device/:key', function(req, res) {

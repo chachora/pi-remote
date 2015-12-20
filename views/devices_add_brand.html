@@ -5,18 +5,21 @@
 </head>
 <script>
     function submit(){
-        alert("submit!");
+        var brand = document.getElementById("brand").value;
+        var devices = document.getElementById("devices");
+        var device = devices.options[devices.selectedIndex].text;
+        window.location = "/devices/add/"+brand+'/'+device;
     }
 </script>
 <body>
-
+<input type="hidden" id="brand" value="{{brand}}">
 <select size = "5" id="devices">
     {{#devices}}
     <option value="{{.}}">{{.}}</option>
     {{/devices}}
 </select>
 <button onclick="submit()">
-    Next
+    Save
 </button>
 </body>
 </html>
