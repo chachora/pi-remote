@@ -9,8 +9,8 @@
 var express = require('express');
 var app = express();
 var sys = require('util');
-var exec = require('child_process').exec;
 var lircConfDb = require('./lib/lirc-conf-db');
+var lircDevices = require("./lib/lirc-devices");
 var mustache = require('mustache-express');
 
 // Define templates engine
@@ -47,10 +47,12 @@ app.get("/devices/add/:brand", function(req,res){
   * Controller for the LIRC configuration file of the specified devices.
   */
  app.get("/devices/add/:brand/:device",function(req,res){
-     var brand = req.param("brand");
-     var device = req.param("device");
+     var brand = req.params["brand"];
+     var device = req.params["device"];
      lircConfDb.getDeviceConf(brand, device, function(conf){
-        res.send(conf);
+         lircDevices.updateConf(conf, function(){
+             res.redirect("/");
+         });
      });
  });
 
