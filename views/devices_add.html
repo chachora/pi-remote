@@ -11,14 +11,15 @@
     }
 </script>
 <body>
-
-    <select size = "5" id="brands">
-        {{#brands}}
-        <option value="{{.}}">{{.}}</option>
-        {{/brands}}
-    </select>
-    <button onclick="submit()">
-        Next
-    </button>
+    <div class="container">
+        <select size = "15" id="brands">
+            {{#brands}}
+            <option value="{{.}}">{{.}}</option>
+            {{/brands}}
+        </select>
+        <button onclick="submit()">
+            Next
+        </button>
+    </div>
 </body>
 </html>

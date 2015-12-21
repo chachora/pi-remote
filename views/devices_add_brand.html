@@ -12,14 +12,16 @@
     }
 </script>
 <body>
-<input type="hidden" id="brand" value="{{brand}}">
-<select size = "5" id="devices">
-    {{#devices}}
-    <option value="{{.}}">{{.}}</option>
-    {{/devices}}
-</select>
-<button onclick="submit()">
-    Save
-</button>
+    <div class ="container">
+        <input type="hidden" id="brand" value="{{brand}}">
+        <select size = "15" id="devices">
+            {{#devices}}
+            <option value="{{.}}">{{.}}</option>
+            {{/devices}}
+        </select>
+        <button onclick="submit()">
+            Save
+        </button>
+    </div>
 </body>
 </html>

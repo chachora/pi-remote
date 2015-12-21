@@ -19,6 +19,12 @@ app.set('view engine', 'html');
 app.set('views', __dirname +'/views');
 app.use(express.static(__dirname + '/assets'));
 
+app.get("/", function(req,res){
+    res.render("index", {
+        device: lircDevices.getCurrentDevice()
+    })
+});
+
 /**
  * Controller the brand of the new device from LIRC database.
  */
@@ -44,7 +50,7 @@ app.get("/devices/add/:brand", function(req,res){
 });
 
  /**
-  * Controller for the LIRC configuration file of the specified devices.
+  * Controller for saving the LIRC configuration file of the specified device.
   */
  app.get("/devices/add/:brand/:device",function(req,res){
      var brand = req.params["brand"];
@@ -56,43 +62,32 @@ app.get("/devices/add/:brand", function(req,res){
      });
  });
 
+ /**
+  * Controller for the send command result display.
+  */
+app.get("/send/result/:msg", function(req, res) {
+    res.redirect('/');
+});
+
 // define GET request for /send/deviceName/buttonName
 app.get('/send/:device/:key', function(req, res) {
 
-  var deviceName = req.param("device");
-  var key = req.param("key").toUpperCase();
+    var device = req.params["device"];
 
-  // Make sure that the user has requested a valid device 
-  if(!devices.hasOwnProperty(deviceName)) {
-    res.send("invalid device");
-    return;
-  }
-
-  // Make sure that the user has requested a valid key/button
-  var device = devices[deviceName];
-  var deviceKeyFound = false;
-  for(var i = 0; i < device.length; i++) {
-    if(device[i] === key) {
-      deviceKeyFound = true; 
-      break;
+    // Check if device is specified
+    if (device == "none")
+    {
+        res.redirect('/');
+        return;
     }
-  }
-  if(!deviceKeyFound) {
-    res.send("invalid key number: "+key);
-    return;
-  }
 
-  // send command to irsend
-  var command = "irsend SEND_ONCE "+deviceName+" "+key;
-  exec(command, function(error, stdout, stderr){
-    if(error)
-      res.send("Error sending command");
-    else   
-      res.send("Successfully sent command");
-  });
+    var key = req.params["key"].toUpperCase();
+    lircDevices.sendCommand(device, key, function (msg){
+        console.log(msg);
+        res.redirect('/')
+    })
 
+});
 
-}); // end define GET request for /send/deviceName/buttonName
-
-// Listen on port 80
+// Listen on port 3050
 app.listen('3050');

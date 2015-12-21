@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{>head}}
+ </head>
+  <body>
+  <ul>
+      <li>
+          <a href="devices/add">Add new device</a>
+      </li>
+  </ul>
+
+
+    <!-- BEGIN TELEVISION -->
+
+    <div class="remote-screen container" id="television">
+
+      <div class="buttongroup col-xs-12 col-md-4">
+        <div class="col-xs-12 control-button-container text-center">
+          <a class="btn col-xs-12 btn-lg btn-danger col-xs-12" href="/send/{{device}}/POWER">
+            <i class="fa fa-2x fa-power-off pull-left"></i> TV Power
+          </a>
+        </div>
+
+        <div class="col-xs-3 control-button-container text-center">
+          <a class="btn btn-lg btn-default col-xs-12" href="/send/{{device}}/REWIND">
+            <i class="fa fa-backward"></i>
+          </a>
+        </div>
+
+        <div class="col-xs-3 control-button-container text-center">
+          <a class="btn btn-lg btn-default col-xs-12" href="/send/{{device}}/PAUSE">
+            <i class="fa fa-pause"></i>
+          </a>
+        </div>
+        <div class="col-xs-3 control-button-container text-center">
+          <a class="btn btn-lg btn-default col-xs-12" href="/send/{{device}}/PLAY">
+            <i class="fa fa-play"></i>
+          </a>
+        </div>
+        <div class="col-xs-3 control-button-container text-center">
+          <a class="btn btn-lg btn-default col-xs-12" href="/send/{{device}}/FASTFORWARD">
+            <i class="fa fa-forward"></i>
+          </a>
+        </div>
+
+        <div class="col-xs-6 control-button-container text-center">
+          <a class="btn btn-lg btn-danger col-xs-12" href="/send/{{device}}/NETFLIX">
+            Guide
+          </a>
+        </div>
+        <div class="col-xs-6 control-button-container text-center">
+          <a class="btn btn-lg btn-success col-xs-12" href="/send/{{device}}/AMAZON">
+            Amazon
+          </a>
+        </div>
+
+      </div>
+
+      <div class="buttongroup col-xs-12 col-md-4">
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-default col-xs-12" href="/send/{{device}}/BACK">
+            Back
+          </a>
+        </div>
+
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-primary col-xs-12" href="/send/{{device}}/UP">
+            <i class="fa fa-arrow-up"></i>
+          </a>
+        </div>
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-default col-xs-12" href="/send/{{device}}/INFO">
+            Info
+          </a>
+        </div>
+
+
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-primary col-xs-12" href="/send/{{device}}/LEFT">
+            <i class="fa fa-arrow-left"></i>
+          </a>
+        </div>
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-primary col-xs-12" href="/send/{{device}}/OK">
+            OK
+          </a>
+        </div>
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-primary col-xs-12" href="/send/{{device}}/RIGHT">
+            <i class="fa fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-default col-xs-12" href="/send/{{device}}/EXIT">
+            Exit
+          </a>
+        </div>
+
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-primary col-xs-12" href="/send/{{device}}/DOWN">
+            <i class="fa fa-arrow-down"></i>
+          </a>
+        </div>
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-default col-xs-12" href="/send/{{device}}/UP">
+            ?
+          </a>
+        </div>
+      </div>
+
+      <div class="buttongroup col-xs-12 col-md-4">
+
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-default col-xs-12" href="/send/{{device}}/1">
+            1
+          </a>
+        </div>
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-default col-xs-12" href="/send/{{device}}/2">
+            2
+          </a>
+        </div>
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-default col-xs-12" href="/send/{{device}}/3">
+            3
+          </a>
+        </div>
+
+
+
+
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-default col-xs-12" href="/send/{{device}}/4">
+            4
+          </a>
+        </div>
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-default col-xs-12" href="/send/{{device}}/5">
+            5
+          </a>
+        </div>
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-default col-xs-12" href="/send/{{device}}/6">
+            6
+          </a>
+        </div>
+
+
+
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-default col-xs-12" href="/send/{{device}}/7">
+            7
+          </a>
+        </div>
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-default col-xs-12" href="/send/{{device}}/8">
+            8
+          </a>
+        </div>
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-default col-xs-12" href="/send/{{device}}/9">
+            9
+          </a>
+        </div>
+
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-default col-xs-12" href="/send/{{device}}/mode">
+            Input
+          </a>
+        </div>
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-default col-xs-12" href="/send/{{device}}/0">
+            0
+          </a>
+        </div>
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-default col-xs-12" href="/send/{{device}}/enter">
+            Enter
+          </a>
+        </div>
+      </div>
+
+      <div class="buttongroup col-xs-12 col-md-4">
+
+
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-primary col-xs-12" href="/send/{{device}}/VOLUMEUP">
+            <i class="fa fa-plus-circle"></i>
+          </a>
+        </div>
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-warning col-xs-12" href="/send/{{device}}/MUTE">
+      <span style="display:inline-block;height:24px;overflow:hidden">
+        <i class="fa fa-stack-1x fa-volume-up"></i>
+        <i class="fa fa-stack-2x fa-ban"></i>
+      </span>
+          </a>
+        </div>
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-primary col-xs-12" href="/send/{{device}}/CHANNELUP">
+            <i class="fa fa-arrow-circle-up"></i>
+          </a>
+        </div>
+
+
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-primary col-xs-12" href="/send/{{device}}/VOLUMEDOWN">
+            <i class="fa fa-minus-circle"></i>
+          </a>
+        </div>
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-success col-xs-12" href="/send/{{device}}/FAVORITE">
+            <i class="fa fa-star"></i>
+          </a>
+        </div>
+        <div class="col-xs-4 control-button-container text-center">
+          <a class="btn btn-lg btn-primary col-xs-12" href="/send/{{device}}/CHANNELDOWN">
+            <i class="fa fa-arrow-circle-down"></i>
+          </a>
+        </div>
+        <div class="col-xs-12 control-button-container text-center">
+
+
+        </div>
+
+
+      </div>
+      <!---- END TELEVISION ---->
+
+
+  </body>
+</html>
+
