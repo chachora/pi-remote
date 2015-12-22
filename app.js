@@ -89,5 +89,5 @@ app.get('/send/:device/:key', function(req, res) {
 
 });
 
-// Listen on port 80
-app.listen('80');
+// Listen on port 3000
+app.listen('3000');
