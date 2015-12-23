@@ -4,7 +4,9 @@
   "description": "allows you to control ir devices with a webserver running on a linux device",
   "main": "app.js",
   "dependencies": {
-    "express": "^4.10.2"
+    "express": "^4.10.2",
+    "mustache-express": "^1.2.2",
+    "cheerio": "^0.19.0"
   },
   "devDependencies": {},
   "scripts": {

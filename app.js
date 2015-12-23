@@ -1,118 +1,94 @@
-/**
+ /**
  * app.js
  * 
  * IR Remote Web Service
  * 
- * @author Michael Vartan
- * @version 1.0.0 
+  * @version 0.1.0
  */
 
 var express = require('express');
 var app = express();
-var sys = require('sys')
-var exec = require('child_process').exec;
+var sys = require('util');
+var lircConfDb = require('./lib/lirc-conf-db');
+var lircDevices = require("./lib/lirc-devices");
+var mustache = require('mustache-express');
+
+// Define templates engine
+app.engine('html', mustache());
+app.set('view engine', 'html');
+app.set('views', __dirname +'/views');
+app.use(express.static(__dirname + '/assets'));
+
+app.get("/", function(req,res){
+    res.render("index", {
+        device: lircDevices.getCurrentDevice()
+    })
+});
 
 /**
- * Dictionary of devices and their buttons
- * @type {Object}
+ * Controller the brand of the new device from LIRC database.
  */
-var devices = {};
-/**
- * Generates function to get devices' buttons from irsend command
- * @param  {String} deviceName name of device
- * @return {Function}            exec callback
- */ 
-var getCommandsForDevice = function(deviceName) {
-  /**
-   * Get Device's Button from irsend command
-   * @param  {String} error  Error from running command
-   * @param  {String} stdout std out
-   * @param  {String} stderr std err
-   * @return {None}        
-   */
-  return function(error, stdout, stderr) {
-    var lines = stderr.split("\n");
-    for(var lineIndex in lines) {
-      var line = lines[lineIndex];
-      var parts = line.split(" ");
-      if(parts.length>2) {
-        var keyName = parts[2];
-        devices[deviceName].push(keyName);
-        console.log(deviceName + " found key: "+keyName);
-      }
-    }
-  }
-};
-/**
- * Get Device from irsend command
- * @param  {String} error  Error from running command
- * @param  {String} stdout std out
- * @param  {String} stderr std err
- * @return {None}        
- */
-var getDevice = function (error, stdout, stderr) {
-  if(error) {
-    console.log("irsend not available.");
-    return;
-  }
-  var lines = stderr.split("\n");
-  for(var lineIndex in lines) {
-    var line = lines[lineIndex];
-    var parts = line.split(" ");
-    if(parts.length>1) {
-      var deviceName = parts[1];
-      console.log("device found: "+deviceName.trim());
-      devices[deviceName] = [];
-      exec("irsend list \""+deviceName+"\" \"\"", getCommandsForDevice(deviceName));
+app.get("/devices/add", function(req,res){
+    lircConfDb.getAllBrands(function(brands){
+        res.render("devices_add", {
+            brands: brands
+        })
+    });
+});
 
-    }
-  }          
-};
-// Get all device information
-exec("irsend list \"\" \"\"", getDevice);
+ /**
+  * Controller for the device list by specified brand from LIRC database.
+  */
+app.get("/devices/add/:brand", function(req,res){
+  var brand = req.params["brand"];
+  lircConfDb.getDevicesByBrand(brand, function(devices){
+    res.render("devices_add_brand", {
+      brand: brand,
+      devices: devices
+    })
+  });
+});
 
-// Define static HTML files
-app.use(express.static(__dirname + '/html'));
+ /**
+  * Controller for saving the LIRC configuration file of the specified device.
+  */
+ app.get("/devices/add/:brand/:device",function(req,res){
+     var brand = req.params["brand"];
+     var device = req.params["device"];
+     lircConfDb.getDeviceConf(brand, device, function(conf){
+         lircDevices.updateConf(conf, function(){
+             res.redirect("/");
+         });
+     });
+ });
 
-
+ /**
+  * Controller for the send command result display.
+  */
+app.get("/send/result/:msg", function(req, res) {
+    res.redirect('/');
+});
 
 // define GET request for /send/deviceName/buttonName
 app.get('/send/:device/:key', function(req, res) {
 
-  var deviceName = req.param("device");
-  var key = req.param("key").toUpperCase();
+    var device = req.params["device"];
 
-  // Make sure that the user has requested a valid device 
-  if(!devices.hasOwnProperty(deviceName)) {
-    res.send("invalid device");
-    return;
-  }
-
-  // Make sure that the user has requested a valid key/button
-  var device = devices[deviceName];
-  var deviceKeyFound = false;
-  for(var i = 0; i < device.length; i++) {
-    if(device[i] === key) {
-      deviceKeyFound = true; 
-      break;
+    // Check if device is specified
+    if (device == "none")
+    {
+        res.redirect('/');
+        return;
     }
-  }
-  if(!deviceKeyFound) {
-    res.send("invalid key number: "+key);
-    return;
-  }
 
-  // send command to irsend
-  var command = "irsend SEND_ONCE "+deviceName+" "+key;
-  exec(command, function(error, stdout, stderr){
-    if(error)
-      res.send("Error sending command");
-    else   
-      res.send("Successfully sent command");
-  });
+    var key = req.params["key"].toUpperCase();
+    lircDevices.sendCommand(device, key, function (msg){
+        console.log(msg);
+        res.redirect('/')
+    })
 
+});
 
-}); // end define GET request for /send/deviceName/buttonName
-
-// Listen on port 80
-app.listen('80');
+// Listen on port 3000
+ var port = process.env.PORT || 3000;
+ app.listen(port);

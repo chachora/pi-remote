@@ -1,7 +1,7 @@
 
 
 var changeTab = function(event) {
-  event.preventDefault()
+  event.preventDefault();
   var link = this;
   var $link = $(link);
   var name = $link.text().trim();
@@ -17,7 +17,7 @@ var changeTab = function(event) {
   window.scroll(0);
 };
 
-$("#tabBar a").bind("click touchstart",changeTab)
+$("#tabBar a").bind("click touchstart",changeTab);
 
 
 $(".remote-screen a").click(function(event) {
@@ -31,7 +31,7 @@ $.ajax({
 	console.log($this);
   document.body.style.opacity="1"
 });
-event.preventDefault()
+event.preventDefault();
 return true;
 });
 /**
@@ -75,7 +75,7 @@ $.ajax({
   console.log(data);
   document.body.style.opacity="1"
 });  
-}
+};
 $("#type").bind('change input',function(event) {
   var $this = $(this);
   var text = this.value;
@@ -85,10 +85,10 @@ $("#type").bind('change input',function(event) {
   var placeHolderText = $this.attr("placeholder");
   if(placeHolderText === "Type here") placeHolderText = "";
   if(text === "") text = " ";
-  $this.removeClass("text-center").addClass("text-right")
+  $this.removeClass("text-center").addClass("text-right");
   if(placeHolderText.length>30)
     placeHolderText = placeHolderText.substring(1);
-  $this.attr("placeholder",placeHolderText+text)
+  $this.attr("placeholder",placeHolderText+text);
   if(text.length>0) {
     switch(text) {
       case " ":
@@ -106,7 +106,7 @@ $("#type").bind('change input',function(event) {
   }
 
   //console.log(text)
-})
+});
 $("#type").bind('keyup', function(event) {
   var keyName = "";
   $type = $("#type");
@@ -125,4 +125,4 @@ $("#type").bind('keyup', function(event) {
     default: return;
   }
   sendKey("vizio", keyName);
-})
+});

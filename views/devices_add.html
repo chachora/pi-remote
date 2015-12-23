@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{>head}}
+</head>
+<script>
+    function submit(){
+        var brands = document.getElementById("brands");
+        var brand = brands.options[brands.selectedIndex].text;
+        window.location = '/devices/add/'+brand;
+    }
+</script>
+<body>
+    <div class="container">
+        <select size = "15" id="brands">
+            {{#brands}}
+            <option value="{{.}}">{{.}}</option>
+            {{/brands}}
+        </select>
+        <button onclick="submit()">
+            Next
+        </button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{>head}}
+</head>
+<script>
+    function submit(){
+        var brand = document.getElementById("brand").value;
+        var devices = document.getElementById("devices");
+        var device = devices.options[devices.selectedIndex].text;
+        window.location = "/devices/add/"+brand+'/'+device;
+    }
+</script>
+<body>
+    <div class ="container">
+        <input type="hidden" id="brand" value="{{brand}}">
+        <select size = "15" id="devices">
+            {{#devices}}
+            <option value="{{.}}">{{.}}</option>
+            {{/devices}}
+        </select>
+        <button onclick="submit()">
+            Save
+        </button>
+    </div>
+</body>
+</html>
