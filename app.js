@@ -12,6 +12,7 @@ var sys = require('util');
 var lircConfDb = require('./lib/lirc-conf-db');
 var lircDevices = require("./lib/lirc-devices");
 var mustache = require('mustache-express');
+var voiceCmnds = require('./controllers/voice-commands.js');
 
 // Define templates engine
 app.engine('html', mustache());
@@ -88,6 +89,8 @@ app.get('/send/:device/:key', function(req, res) {
     })
 
 });
+
+ app.get("/commands",voiceCmnds.view);
 
 // Listen on port 3000
  var port = process.env.PORT || 3000;
