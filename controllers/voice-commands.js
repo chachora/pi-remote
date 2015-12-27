@@ -5,11 +5,21 @@
 var lircDevices = require("../lib/lirc-devices");
 var voiceCommandsConf = require("../lib/voice-commands-conf.js");
 
-
-exports.view = function(req,res){
+module.exports = function (app){
+    /**
+     * Controller for voice commands list view.
+     */
+    app.get("/commands", function(req,res){
         res.render("voice_commands.html", {
-                commands: voiceCommandsConf.getVoiceCommands(),
-                buttons: lircDevices.getButtons(),
-                devices: lircDevices.getDevices()
-        });
+            commands: voiceCommandsConf.getCommands(),
+            buttons: lircDevices.getButtons(),
+            devices: lircDevices.getDevices()
+        })
+    });
+
+    app.get("/commands/delete/:index", function(req, res){
+        var index = req.params["index"];
+        voiceCommandsConf.deleteCommand(index);
+        res.redirect("/commands")
+    });
 };

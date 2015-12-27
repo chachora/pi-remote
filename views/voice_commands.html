@@ -17,7 +17,7 @@
         </tr>
         <tr>
             <td><input type="text" placeholder="Enter command..." class="form-control"/></td>
-            <td><button>Play</button></td>
+            <td><button type="button" class="btn btn-default">Play</button></td>
             <td>
                 <select class="form-control">
                     {{#devices}}
@@ -33,20 +33,20 @@
                 </select>
             </td>
             <td>
-                <button>Try</button>
-                <button>Add</button>
+                <button type="button" class="btn btn-default">Try</button>
+                <button type="button" class="btn btn-default">Add</button>
             </td>
         </tr>
         {{#commands}}
         <tr>
             <td><input type="text" value="{{voice_command}}" class="form-control"/></td>
-            <td><button>Play</button></td>
+            <td><button type="button" class="btn btn-default">Play</button></td>
             <td>{{device_name}}</td>
             <td>{{name}}</td>
             <td>
-                <button>Try</button>
-                <button>Save</button>
-                <button>Delete</button>
+                <button type="button" class="btn btn-default">Try</button>
+                <button type="button" class="btn btn-default">Save</button>
+                <button type="button" class="btn btn-default">Delete</button>
             </td>
         </tr>
         {{/commands}}

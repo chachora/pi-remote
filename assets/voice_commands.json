@@ -3,11 +3,13 @@
     "device_name": "TV-LG",
     "commands": [
       {
+        "device_name": "TV-LG",
         "action": "/send/LG/KEY_POWER",
         "name": "KEY_POWER",
         "voice_command": "включить"
       },
       {
+        "device_name": "TV-LG",
         "action": "/send/LG/KEY_POWER",
         "name": "KEY_POWER",
         "voice_command": "выключить"
