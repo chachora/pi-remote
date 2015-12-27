@@ -7,9 +7,48 @@
 <div class="container">
     <h1>commands list</h1>
 
-    <table>
+    <table class="table">
+        <tr>
+            <th>Command</th>
+            <th>Play Sound</th>
+            <th>Device</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+        <tr>
+            <td><input type="text" placeholder="Enter command..." class="form-control"/></td>
+            <td><button>Play</button></td>
+            <td>
+                <select class="form-control">
+                    {{#devices}}
+                    <option>{{.}}</option>
+                    {{/devices}}
+                </select>
+            </td>
+            <td>
+                <select class="form-control">
+                    {{#buttons}}
+                    <option>{{.}}</option>
+                    {{/buttons}}
+                </select>
+            </td>
+            <td>
+                <button>Try</button>
+                <button>Add</button>
+            </td>
+        </tr>
         {{#commands}}
-        <tr><td></td><td>{{voice_command}}</td></tr>
+        <tr>
+            <td><input type="text" value="{{voice_command}}" class="form-control"/></td>
+            <td><button>Play</button></td>
+            <td>{{device_name}}</td>
+            <td>{{name}}</td>
+            <td>
+                <button>Try</button>
+                <button>Save</button>
+                <button>Delete</button>
+            </td>
+        </tr>
         {{/commands}}
     </table>
 </div>
