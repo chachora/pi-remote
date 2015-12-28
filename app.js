@@ -78,14 +78,14 @@ app.get('/send/:device/:key', function(req, res) {
     // Check if device is specified
     if (device == "none")
     {
-        res.redirect('/');
+        res.redirect('back');
         return;
     }
 
     var key = req.params["key"].toUpperCase();
     lircDevices.sendCommand(device, key, function (msg){
         console.log(msg);
-        res.redirect('/')
+        res.redirect('back')
     })
 
 });

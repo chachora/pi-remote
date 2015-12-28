@@ -52,7 +52,7 @@
             <td>{{device_name}}</td>
             <td>{{button}}</td>
             <td>
-                <button type="button" class="btn btn-default">Try</button>
+                <a class="btn btn-default" href="/send/{{device_name}}/{{button}}">Try</a>
                 <button type="button" class="btn btn-default" onclick="update({{commands_index};})">Update</button>
                 <a class="btn btn-default" href="/commands/delete/{{commands_index}}">Delete</a>
             </td>
