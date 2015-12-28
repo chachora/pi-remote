@@ -22,6 +22,9 @@ module.exports = function (app){
         res.render("voice_commands.html", data)
     });
 
+    /**
+     * Controller for adding new voice command.
+     */
     app.get("/commands/add/:command/:device/:button", function(req, res){
         var command = req.params["command"];
         var device = req.params["device"];
@@ -39,10 +42,20 @@ module.exports = function (app){
         res.redirect("/commands")
     });
 
+    /**
+     * Controller for updating existing voice command.
+     */
     app.get("/commands/update/:index/:command", function(req, res){
         var index = req.params["index"];
         var command = req.params["command"];
         voiceCommandsConf.updateCommand(index, command);
         res.redirect("/commands")
+    });
+
+    /**
+     * Controller for json presentation of the voice commands list.
+     */
+    app.get("/commands/json", function(req, res){
+        res.json(voiceCommandsConf.getCommands())
     })
 };
