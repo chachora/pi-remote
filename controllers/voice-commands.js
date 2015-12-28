@@ -10,11 +10,16 @@ module.exports = function (app){
      * Controller for voice commands list view.
      */
     app.get("/commands", function(req,res){
-        res.render("voice_commands.html", {
+        var data = {
+            commands_index: function(){
+                return data.commands.indexOf(this)
+            },
             commands: voiceCommandsConf.getCommands(),
             buttons: lircDevices.getButtons(),
             devices: lircDevices.getDevices()
-        })
+    };
+
+        res.render("voice_commands.html", data)
     });
 
     app.get("/commands/delete/:index", function(req, res){
