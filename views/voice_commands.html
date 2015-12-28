@@ -3,6 +3,12 @@
 <head>
     {{>head}}
 </head>
+<script>
+    function update(index){
+        var command = document.getElementById("voice_command"+index).value;
+        window.location = "/commands/update/"+index+'/'+command;
+    }
+</script>
 <body>
 <div class="container">
     <h1>commands list</h1>
@@ -39,13 +45,15 @@
         </tr>
         {{#commands}}
         <tr>
-            <td><input type="text" value="{{voice_command}}" class="form-control"/></td>
+            <td>
+                <input type="text" value="{{voice_command}}" class="form-control" id="voice_command{{commands_index}}"/>
+            </td>
             <td><button type="button" class="btn btn-default">Play</button></td>
             <td>{{device_name}}</td>
-            <td>{{name}}</td>
+            <td>{{button}}</td>
             <td>
                 <button type="button" class="btn btn-default">Try</button>
-                <button type="button" class="btn btn-default">Save</button>
+                <button type="button" class="btn btn-default" onclick="update({{commands_index};})">Update</button>
                 <a class="btn btn-default" href="/commands/delete/{{commands_index}}">Delete</a>
             </td>
         </tr>
