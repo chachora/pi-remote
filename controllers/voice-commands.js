@@ -22,6 +22,14 @@ module.exports = function (app){
         res.render("voice_commands.html", data)
     });
 
+    app.get("/commands/add/:command/:device/:button", function(req, res){
+        var command = req.params["command"];
+        var device = req.params["device"];
+        var button = req.params["button"];
+        voiceCommandsConf.addCommand(command,device,button);
+        res.redirect("/commands")
+    });
+
     /**
      * Controller for deleting voice commands.
      */
