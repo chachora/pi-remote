@@ -2,71 +2,83 @@
 <html lang="en">
 <head>
     {{>head}}
+
+    <script type="text/javascript">
+        function validateParams(params, skipIndexes){
+            if (skipIndexes == undefined)
+                skipIndexes = [];
+
+            if ((params[0] == "") && !(skipIndexes.indexOf(0) > -1))
+            {
+                alert("Command cannot be empty!");
+                return false;
+            }
+
+            if ((params[1] == "") && !(skipIndexes.indexOf(1) > -1))
+            {
+                alert("Device cannot be empty!");
+                return false;
+            }
+
+            if ((params[2] == "") && !(skipIndexes.indexOf(2) > -1))
+            {
+                alert("Button cannot be empty!");
+                return false;
+            }
+
+            return true;
+        }
+
+        function getSelectedValue(htmlSelect){
+            var index = htmlSelect.selectedIndex;
+            if (htmlSelect.length > 0)
+            {
+                if (index = -1) index = 0;
+                return htmlSelect.options[index].text;
+            }
+            return ""
+        }
+
+        function getParams(){
+            var command = document.getElementById("voice_command").value;
+            var device = getSelectedValue(document.getElementById("devices"));
+            var button = getSelectedValue(document.getElementById("buttons"));
+
+            return [command, device, button]
+        }
+
+        function add(){
+            var params = getParams();
+            if (!validateParams(params))
+                return;
+            window.location = "/commands/add/"+params[0] +'/' + params[1] +'/'+params[2];
+        }
+
+        function tryNew()
+        {
+            var params = getParams();
+            if (!validateParams(params,[0]))
+                return;
+            window.location = "/send/"+params[1]+'/'+params[2]
+        }
+
+        function update(index){
+            var command = document.getElementById("voice_command"+index).value;
+            window.location = "/commands/update/"+index+'/'+command;
+        }
+
+        /**
+         * Text to speech conversion and playing.
+         */
+        function playAudio(text){
+            if ((text == undefined)|| (text == ""))
+                return;
+
+            var audio = new Audio("/commands/speech/" + text);
+            audio.play();
+        }
+    </script>
 </head>
-<script>
-    function validateParams(params, skipIndexes){
-        if (skipIndexes == undefined)
-            skipIndexes = [];
-
-        if ((params[0] == "") && !(skipIndexes.indexOf(0) > -1))
-        {
-            alert("Command cannot be empty!");
-            return false;
-        }
-
-        if ((params[1] == "") && !(skipIndexes.indexOf(1) > -1))
-        {
-            alert("Device cannot be empty!");
-            return false;
-        }
-
-        if ((params[2] == "") && !(skipIndexes.indexOf(2) > -1))
-        {
-            alert("Button cannot be empty!");
-            return false;
-        }
-
-        return true;
-    }
-
-    function getSelectedValue(htmlSelect){
-        var index = htmlSelect.selectedIndex;
-        if (htmlSelect.length > 0)
-        {
-            if (index = -1) index = 0;
-            return htmlSelect.options[index].text;
-        }
-        return ""
-    }
-
-    function getParams(){
-        var command = document.getElementById("voice_command").value;
-        var device = getSelectedValue(document.getElementById("devices"));
-        var button = getSelectedValue(document.getElementById("buttons"));
-
-        return [command, device, button]
-    }
-
-    function add(){
-       var params = getParams();
-       if (!validateParams(params))
-           return;
-        window.location = "/commands/add/"+params[0] +'/' + params[1] +'/'+params[2];
-    }
-
-    function tryNew()
-    {
-        var params = getParams();
-        if (!validateParams(params,[0]))
-            return;
-        window.location = "/send/"+params[1]+'/'+params[2]
-    }
-
-    function update(index){
-        var command = document.getElementById("voice_command"+index).value;
-        window.location = "/commands/update/"+index+'/'+command;
-    }
-</script>
 <body>
 <div class="container">
     <h1>commands list</h1>
@@ -81,7 +93,7 @@
         </tr>
         <tr>
             <td><input type="text" placeholder="Enter new command..." class="form-control" id ="voice_command"/></td>
-            <td><button type="button" class="btn btn-default">Play</button></td>
+            <td><button type="button" class="btn btn-default" onclick="playAudio(document.getElementById('voice_command').value)">Play</button></td>
             <td>
                 <select class="form-control" id="devices">
                     {{#devices}}
@@ -106,7 +118,7 @@
             <td>
                 <input type="text" value="{{voice_command}}" class="form-control" id="voice_command{{commands_index}}"/>
             </td>
-            <td><button type="button" class="btn btn-default">Play</button></td>
+            <td><button type="button" class="btn btn-default" onclick="playAudio(document.getElementById('voice_command{{commands_index}}').value)">Play</button></td>
             <td>{{device_name}}</td>
             <td>{{button}}</td>
             <td>

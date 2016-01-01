@@ -2,8 +2,14 @@
  * Created by chachora on 12/23/15.
  */
 
+var fs = require("fs");
+var path = require("path");
 var lircDevices = require("../lib/lirc-devices");
 var voiceCommandsConf = require("../lib/voice-commands-conf.js");
+var yandexSpeech = require("yandex-speech");
+
+const SOUND_FILE_RELATIVE_PATH = "/data/sound.mp3";
+const SOUND_FILE_PATH = path.dirname(require.main.filename) + SOUND_FILE_RELATIVE_PATH;
 
 module.exports = function (app){
     /**
@@ -57,5 +63,32 @@ module.exports = function (app){
      */
     app.get("/commands/json", function(req, res){
         res.json(voiceCommandsConf.getCommands())
+    });
+
+    /**
+     * Pronounce command with Yandex SpeechKit.
+     */
+    app.get("/commands/speech/:text", function(req, res){
+        try {
+            if (fs.existsSync(SOUND_FILE_PATH))
+                fs.unlinkSync(SOUND_FILE_PATH);
+            var text = req.params["text"];
+            yandexSpeech.TTS({
+                text: text,
+                file: SOUND_FILE_PATH
+            }, function () {
+                var stat = fs.statSync(SOUND_FILE_PATH);
+
+                res.writeHead(200, {
+                    "Content-Type": "audio/mpeg",
+                    "Content-Length": stat.size
+                });
+
+                var stream = fs.createReadStream(SOUND_FILE_PATH);
+                stream.pipe(res);
+            })
+        } catch (err){
+            console.log(err.message);
+        }
     })
 };
