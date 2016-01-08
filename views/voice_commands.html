@@ -29,11 +29,12 @@
             return true;
         }
 
-        function getSelectedValue(htmlSelect){
+        function getSelectedValue(htmlSelectId){
+            var htmlSelect = document.getElementById(htmlSelectId);
             var index = htmlSelect.selectedIndex;
             if (htmlSelect.length > 0)
             {
-                if (index = -1) index = 0;
+                if (index == -1) index = 0;
                 return htmlSelect.options[index].text;
             }
             return ""
@@ -41,8 +42,8 @@
 
         function getParams(){
             var command = document.getElementById("voice_command").value;
-            var device = getSelectedValue(document.getElementById("devices"));
-            var button = getSelectedValue(document.getElementById("buttons"));
+            var device = getSelectedValue("devices");
+            var button = getSelectedValue("buttons");
 
             return [command, device, button]
         }
