@@ -1,3 +1,5 @@
 #Pi Remote
 
-Interface for remote control via pi.
+Web interface for remote control via RaspberryPi.
+
+Demo: https://pi-remote.herokuapp.com/
